@@ -22,6 +22,7 @@ import javax.swing.JTable;
 import cz.pelantciz.dpo4.shapes.Circle;
 import cz.pelantciz.dpo4.shapes.Shape;
 import cz.pelantciz.dpo4.shapes.Square;
+import cz.pelantciz.dpo4.ui.CircleTableModel;
 import cz.pelantciz.dpo4.ui.MyCanvas;
 
 public class Window extends JFrame implements MouseListener {
@@ -29,6 +30,7 @@ public class Window extends JFrame implements MouseListener {
 
     private List<Shape> shapes = new ArrayList<Shape>();
     private Canvas canvas;
+    private CircleTableModel cTableModel;
 
     /**
      * Launch the application.
@@ -50,6 +52,8 @@ public class Window extends JFrame implements MouseListener {
      * Create the frame.
      */
     public Window() {
+        cTableModel = new CircleTableModel();
+        cTableModel.setShapes(shapes);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 529, 363);
         getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
@@ -62,6 +66,7 @@ public class Window extends JFrame implements MouseListener {
 
     private void invalidateViews() {
         canvas.update(canvas.getGraphics());
+        cTableModel.invalidate();
         System.out.println("invalidated");
     }
 

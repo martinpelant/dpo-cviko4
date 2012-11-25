@@ -4,6 +4,9 @@ package cz.pelantciz.dpo4.shapes;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import cz.pelantciz.dpo4.ui.CircleTableModel;
+import cz.pelantciz.dpo4.ui.ShapeTableModel;
+
 public class Circle implements Shape {
     int d;
     int x;
@@ -53,5 +56,13 @@ public class Circle implements Shape {
         g.setColor(Color.black);
         g.drawOval(x, y, d, d);
     }
+
+    @Override
+    public void accept(ShapeTableModel tableModel) {
+       System.out.println("accept(AbstractTableModel tableModel)");
+       tableModel.visit(this);
+    }
+    
+   
 
 }
