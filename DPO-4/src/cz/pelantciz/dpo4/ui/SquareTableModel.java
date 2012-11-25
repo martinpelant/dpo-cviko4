@@ -7,24 +7,24 @@ import java.util.List;
 import cz.pelantciz.dpo4.Window;
 import cz.pelantciz.dpo4.shapes.Circle;
 import cz.pelantciz.dpo4.shapes.Shape;
+import cz.pelantciz.dpo4.shapes.Square;
 
-public class CircleTableModel extends BaseTableModel {
+public class SquareTableModel extends BaseTableModel {
    
 
 
     private static final long serialVersionUID = 1L;
 
-    public static final String TAG = "CircleTableModel";
 
-    private List<Circle> circles = new ArrayList<Circle>();
+    private List<Square> squares = new ArrayList<Square>();
 
 
-    public CircleTableModel(Window window, List<Shape> shapes) {
+    public SquareTableModel(Window window, List<Shape> shapes) {
         super(window, shapes);
     }
     
     public void invalidate() {
-        circles.clear();
+        squares.clear();
         for (Shape shape : shapes) {
             shape.accept(this);
         }
@@ -32,9 +32,9 @@ public class CircleTableModel extends BaseTableModel {
     }
 
     @Override
-    public void visit(Circle c) {
-        circles.add(c);
-        System.out.println("Circle table model " + circles.size());
+    public void visit(Square s) {
+        squares.add(s);
+        System.out.println("Square table model " + squares.size());
     }
 
     @Override
@@ -44,43 +44,45 @@ public class CircleTableModel extends BaseTableModel {
 
     @Override
     public int getRowCount() {
-        return circles.size();
+        return squares.size();
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Circle c = circles.get(rowIndex);
+        Square s = squares.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return c.getId();
+                return s.getId();
             case 1:
-                return c.getX();
+                return s.getX();
             case 2:
-                return c.getY();
+                return s.getY();
             case 3:
-                return c.getD();
+                return s.getA();
             default:
                 return getValueAt(rowIndex, 0);
         }
     }
 
+  
+
     
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         String value = aValue+"";
-        Circle c = circles.get(rowIndex);
+        Square s = squares.get(rowIndex);
         try {
             switch (columnIndex) {
                 case 0:
                     break;
                 case 1:
-                    c.setX(Integer.parseInt(value));
+                    s.setX(Integer.parseInt(value));
                     break;
                 case 2:
-                    c.setY(Integer.parseInt(value));
+                    s.setY(Integer.parseInt(value));
                     break;
                 case 3:
-                    c.setD(Integer.parseInt(value));
+                    s.setA(Integer.parseInt(value));
                     break;
                 default:
                     break;
@@ -88,7 +90,9 @@ public class CircleTableModel extends BaseTableModel {
         } catch (Exception e) {
             // TODO: handle exception
         }
-        super.setValueAt(aValue, rowIndex, columnIndex);
+       super.setValueAt(aValue, rowIndex, columnIndex);
+       
+       
     }
 
 }

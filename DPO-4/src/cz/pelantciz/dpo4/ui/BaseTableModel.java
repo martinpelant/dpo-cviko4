@@ -45,5 +45,18 @@ public class BaseTableModel extends AbstractTableModel implements ShapeTableMode
     @Override
     public void visit(Square s) {
     }
+    
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        if (columnIndex != 0)
+            return true;
+        return false;
+        
+    }
+    
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        window.invalidateViews();
+    }
 
 }

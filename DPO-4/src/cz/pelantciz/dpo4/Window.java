@@ -24,6 +24,7 @@ import cz.pelantciz.dpo4.shapes.Shape;
 import cz.pelantciz.dpo4.shapes.Square;
 import cz.pelantciz.dpo4.ui.CircleTableModel;
 import cz.pelantciz.dpo4.ui.MyCanvas;
+import cz.pelantciz.dpo4.ui.SquareTableModel;
 
 public class Window extends JFrame implements MouseListener {
     public static final String TAG = "Window";
@@ -31,8 +32,12 @@ public class Window extends JFrame implements MouseListener {
     private List<Shape> shapes = new ArrayList<Shape>();
     private Canvas canvas;
     private CircleTableModel circleTableModel;
+    private SquareTableModel squareTableModel;
 
     private JTable circleTable;
+    private JTable squareTable;
+
+    
 
     /**
      * Launch the application.
@@ -55,6 +60,7 @@ public class Window extends JFrame implements MouseListener {
      */
     public Window() {
         circleTableModel = new CircleTableModel(this, shapes);
+        squareTableModel = new SquareTableModel(this, shapes);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 529, 363);
         getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
@@ -70,6 +76,12 @@ public class Window extends JFrame implements MouseListener {
         circleTableModel.invalidate();
         circleTable.revalidate(); // this works 99% of the time
         circleTable.repaint(); // sometimes needed.
+        
+        
+        squareTableModel.invalidate();
+        squareTable.revalidate(); // this works 99% of the time
+        squareTable.repaint(); // sometimes needed.
+        
         System.out.println("invalidated");
     }
 
@@ -96,10 +108,10 @@ public class Window extends JFrame implements MouseListener {
         circleTable.setBackground(Color.WHITE);
         panel.add(circleTable, c);
 
-        JTable table = new JTable();
-        table.setBackground(Color.YELLOW);
+        squareTable = new JTable(squareTableModel);
+        squareTable.setBackground(Color.yellow);
         c.gridy = 1;
-        panel.add(table, c);
+        panel.add(squareTable, c);
 
         JButton button = new JButton("Clear");
         button.addActionListener(new ActionListener() {
