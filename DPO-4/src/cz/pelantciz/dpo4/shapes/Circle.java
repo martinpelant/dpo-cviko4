@@ -4,26 +4,20 @@ package cz.pelantciz.dpo4.shapes;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import cz.pelantciz.dpo4.ui.CircleTableModel;
 import cz.pelantciz.dpo4.ui.ShapeTableModel;
 
 public class Circle implements Shape {
+    long id;
     int d;
     int x;
     int y;
 
-    public Circle(int d, int x, int y) {
-        super();
-        this.d = d;
-        this.x = x;
-        this.y = y;
-    }
-    
     public Circle(int x, int y) {
         super();
         this.x = x;
         this.y = y;
         d=10;
+        id=System.currentTimeMillis();
     }
 
     public int getD() {
@@ -48,6 +42,10 @@ public class Circle implements Shape {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public long getId() {
+        return id;
     }
 
     @Override

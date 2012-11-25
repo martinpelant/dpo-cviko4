@@ -30,7 +30,9 @@ public class Window extends JFrame implements MouseListener {
 
     private List<Shape> shapes = new ArrayList<Shape>();
     private Canvas canvas;
-    private CircleTableModel cTableModel;
+    private CircleTableModel circleTableModel;
+
+    private JTable circleTable;
 
     /**
      * Launch the application.
@@ -52,8 +54,7 @@ public class Window extends JFrame implements MouseListener {
      * Create the frame.
      */
     public Window() {
-        cTableModel = new CircleTableModel();
-        cTableModel.setShapes(shapes);
+        circleTableModel = new CircleTableModel(this, shapes);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 529, 363);
         getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
@@ -64,9 +65,11 @@ public class Window extends JFrame implements MouseListener {
 
     }
 
-    private void invalidateViews() {
+    public void invalidateViews() {
         canvas.update(canvas.getGraphics());
-        cTableModel.invalidate();
+        circleTableModel.invalidate();
+        circleTable.revalidate(); // this works 99% of the time
+        circleTable.repaint(); // sometimes needed.
         System.out.println("invalidated");
     }
 
@@ -79,7 +82,6 @@ public class Window extends JFrame implements MouseListener {
 
     private JPanel prepareRightPanel() {
         JPanel panel = new JPanel();
-        panel.setBackground(Color.WHITE);
         getContentPane().add(panel);
         panel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -90,9 +92,9 @@ public class Window extends JFrame implements MouseListener {
         c.gridx = 0;
         c.gridy = 0;
 
-        JTable table_1 = new JTable();
-        table_1.setBackground(Color.BLACK);
-        panel.add(table_1, c);
+        circleTable = new JTable(circleTableModel);
+        circleTable.setBackground(Color.WHITE);
+        panel.add(circleTable, c);
 
         JTable table = new JTable();
         table.setBackground(Color.YELLOW);

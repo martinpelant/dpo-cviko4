@@ -4,18 +4,18 @@ package cz.pelantciz.dpo4.shapes;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import javax.swing.table.AbstractTableModel;
-
 import cz.pelantciz.dpo4.ui.ShapeTableModel;
 
 public class Square implements Shape {
+    long id;
     int x;
     int y;
     int a;
 
     public Square(int x, int y) {
         super();
-        a=10;
+        id = System.currentTimeMillis();
+        a = 10;
         this.x = x;
         this.y = y;
     }
@@ -44,6 +44,10 @@ public class Square implements Shape {
         this.a = a;
     }
 
+    public long getId() {
+        return id;
+    }
+
     @Override
     public void draw(Graphics g) {
         g.setColor(Color.black);
@@ -53,8 +57,8 @@ public class Square implements Shape {
 
     @Override
     public void accept(ShapeTableModel tableModel) {
-       System.out.println("accept(AbstractTableModel tableModel)");
-       tableModel.visit(this);
+        System.out.println("accept(AbstractTableModel tableModel)");
+        tableModel.visit(this);
     }
 
 }
