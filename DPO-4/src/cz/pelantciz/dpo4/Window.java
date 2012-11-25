@@ -86,8 +86,7 @@ public class Window extends JFrame implements MouseListener {
     }
 
     private Canvas prepareCanvas() {
-        MyCanvas canvas = new MyCanvas();
-        canvas.setShapes(shapes);
+        MyCanvas canvas = new MyCanvas(shapes);
         canvas.addMouseListener(this);
         return canvas;
     }

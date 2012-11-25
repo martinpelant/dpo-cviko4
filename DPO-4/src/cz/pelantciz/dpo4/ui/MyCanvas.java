@@ -12,9 +12,10 @@ public class MyCanvas extends Canvas{
     private List<Shape> shapes;
     
     
-    public void setShapes(List<Shape> shapes) {
+    public MyCanvas(List<Shape> shapes) {
         this.shapes=shapes;
     }
+    
     @Override
     public void paint(Graphics g) {
         super.paint(g);
