@@ -42,6 +42,23 @@ public class SquareTableModel extends BaseTableModel {
     public int getRowCount() {
         return squares.size();
     }
+    
+    @Override
+    public String getColumnName(int column) {
+        switch (column) {
+            case 0:
+                return "id";
+            case 1:
+                return "x";
+            case 2:
+                return "y";
+            case 3:
+                return "a";
+            default:
+                return super.getColumnName(column);
+        }
+        
+    }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {

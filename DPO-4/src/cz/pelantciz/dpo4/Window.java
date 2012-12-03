@@ -17,6 +17,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import cz.pelantciz.dpo4.shapes.Circle;
@@ -105,12 +106,12 @@ public class Window extends JFrame implements MouseListener {
 
         circleTable = new JTable(circleTableModel);
         circleTable.setBackground(Color.WHITE);
-        panel.add(circleTable, c);
+        panel.add(new JScrollPane(circleTable), c);
 
         squareTable = new JTable(squareTableModel);
-        squareTable.setBackground(Color.yellow);
+        squareTable.setBackground(Color.WHITE);
         c.gridy = 1;
-        panel.add(squareTable, c);
+        panel.add(new JScrollPane(squareTable), c);
 
         JButton button = new JButton("Clear");
         button.addActionListener(new ActionListener() {

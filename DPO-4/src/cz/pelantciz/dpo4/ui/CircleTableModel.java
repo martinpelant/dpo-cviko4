@@ -38,6 +38,25 @@ public class CircleTableModel extends BaseTableModel {
     public int getColumnCount() {
         return 4;
     }
+    
+    @Override
+    public String getColumnName(int column) {
+        switch (column) {
+            case 0:
+                return "id";
+            case 1:
+                return "x";
+            case 2:
+                return "y";
+            case 3:
+                return "d";
+            default:
+                return super.getColumnName(column);
+        }
+        
+    }
+    
+    
 
     @Override
     public int getRowCount() {
