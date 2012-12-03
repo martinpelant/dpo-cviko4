@@ -9,8 +9,6 @@ import cz.pelantciz.dpo4.shapes.Circle;
 import cz.pelantciz.dpo4.shapes.Shape;
 
 public class CircleTableModel extends BaseTableModel {
-   
-
 
     private static final long serialVersionUID = 1L;
 
@@ -18,11 +16,10 @@ public class CircleTableModel extends BaseTableModel {
 
     private List<Circle> circles = new ArrayList<Circle>();
 
-
     public CircleTableModel(Window window, List<Shape> shapes) {
         super(window, shapes);
     }
-    
+
     public void invalidate() {
         circles.clear();
         for (Shape shape : shapes) {
@@ -64,29 +61,29 @@ public class CircleTableModel extends BaseTableModel {
         }
     }
 
-    
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        String value = aValue+"";
-        Circle c = circles.get(rowIndex);
+        String value = aValue + "";
+        Circle original = circles.get(rowIndex);
+        Circle tmp = new Circle(original);
         try {
             switch (columnIndex) {
                 case 0:
                     break;
                 case 1:
-                    c.setX(Integer.parseInt(value));
+                    tmp.setX(Integer.parseInt(value));
                     break;
                 case 2:
-                    c.setY(Integer.parseInt(value));
+                    tmp.setY(Integer.parseInt(value));
                     break;
                 case 3:
-                    c.setD(Integer.parseInt(value));
+                    tmp.setD(Integer.parseInt(value));
                     break;
                 default:
                     break;
             }
-        } catch (Exception e) {
-            // TODO: handle exception
+            setIfValid(original, tmp);
+        } catch (NumberFormatException e) {
         }
         super.setValueAt(aValue, rowIndex, columnIndex);
     }

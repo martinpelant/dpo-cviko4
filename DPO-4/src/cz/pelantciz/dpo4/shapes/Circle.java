@@ -19,6 +19,13 @@ public class Circle implements Shape {
         d=10;
         id=System.currentTimeMillis();
     }
+    
+    public Circle(Circle src) {
+        x=src.x;
+        y=src.y;
+        d=src.d;
+        id=src.id;
+    }
 
     public int getD() {
         return d;
@@ -60,6 +67,17 @@ public class Circle implements Shape {
        System.out.println("accept(AbstractTableModel tableModel)");
        tableModel.visit(this);
     }
+
+    @Override
+    public boolean isValid() {
+        return d>=0;
+    }
+    
+    @Override
+    public String toString() {
+       return "Circle " + id  + ": d=" + d;
+    }
+
     
    
 

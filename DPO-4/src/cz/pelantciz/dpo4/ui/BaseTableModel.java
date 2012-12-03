@@ -1,3 +1,4 @@
+
 package cz.pelantciz.dpo4.ui;
 
 import java.util.List;
@@ -14,12 +15,11 @@ public class BaseTableModel extends AbstractTableModel implements ShapeTableMode
     protected final Window window;
     protected final List<Shape> shapes;
 
-    
     public BaseTableModel(Window window, List<Shape> shapes) {
-        this.window=window;
+        this.window = window;
         this.shapes = shapes;
     }
-    
+
     @Override
     public int getColumnCount() {
         // TODO Auto-generated method stub
@@ -45,18 +45,29 @@ public class BaseTableModel extends AbstractTableModel implements ShapeTableMode
     @Override
     public void visit(Square s) {
     }
-    
+
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         if (columnIndex != 0)
             return true;
         return false;
-        
+
     }
-    
+
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         window.invalidateViews();
     }
 
+    protected void setIfValid(Shape original, Shape tmp) {
+        if (tmp.isValid()) {
+            System.out.println("is valid");
+            int globalIndex = shapes.indexOf(original);
+            if (globalIndex != -1) {
+                shapes.set(globalIndex, tmp);
+            }
+        } else {
+            System.out.println("is NOT valid");
+        }
+    }
 }

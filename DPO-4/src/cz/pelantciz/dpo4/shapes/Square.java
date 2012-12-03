@@ -6,7 +6,7 @@ import java.awt.Graphics;
 
 import cz.pelantciz.dpo4.ui.ShapeTableModel;
 
-public class Square implements Shape {
+public class Square implements Shape{
     long id;
     int x;
     int y;
@@ -18,6 +18,12 @@ public class Square implements Shape {
         a = 10;
         this.x = x;
         this.y = y;
+    }
+    public Square(Square src) {
+        x=src.x;
+        y=src.y;
+        a=src.a;
+        id=src.id;
     }
 
     public int getX() {
@@ -59,6 +65,17 @@ public class Square implements Shape {
     public void accept(ShapeTableModel tableModel) {
         System.out.println("accept(AbstractTableModel tableModel)");
         tableModel.visit(this);
+    }
+
+    @Override
+    public boolean isValid() {
+        return a>=0;
+    }
+    
+    
+    @Override
+    public String toString() {
+       return "Square " + id  + ": a=" + a;
     }
 
 }

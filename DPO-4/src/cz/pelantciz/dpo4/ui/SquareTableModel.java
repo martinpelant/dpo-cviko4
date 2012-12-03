@@ -10,19 +10,15 @@ import cz.pelantciz.dpo4.shapes.Shape;
 import cz.pelantciz.dpo4.shapes.Square;
 
 public class SquareTableModel extends BaseTableModel {
-   
-
 
     private static final long serialVersionUID = 1L;
 
-
     private List<Square> squares = new ArrayList<Square>();
-
 
     public SquareTableModel(Window window, List<Shape> shapes) {
         super(window, shapes);
     }
-    
+
     public void invalidate() {
         squares.clear();
         for (Shape shape : shapes) {
@@ -64,35 +60,32 @@ public class SquareTableModel extends BaseTableModel {
         }
     }
 
-  
-
-    
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        String value = aValue+"";
-        Square s = squares.get(rowIndex);
+        String value = aValue + "";
+        Square original = squares.get(rowIndex);
+        Square tmp = new Square(original);
         try {
             switch (columnIndex) {
                 case 0:
                     break;
                 case 1:
-                    s.setX(Integer.parseInt(value));
+                    tmp.setX(Integer.parseInt(value));
                     break;
                 case 2:
-                    s.setY(Integer.parseInt(value));
+                    tmp.setY(Integer.parseInt(value));
                     break;
                 case 3:
-                    s.setA(Integer.parseInt(value));
+                    tmp.setA(Integer.parseInt(value));
                     break;
                 default:
                     break;
             }
-        } catch (Exception e) {
-            // TODO: handle exception
+            setIfValid(original, tmp);
+        } catch (NumberFormatException e) {
         }
-       super.setValueAt(aValue, rowIndex, columnIndex);
-       
-       
+        super.setValueAt(aValue, rowIndex, columnIndex);
+
     }
 
 }
