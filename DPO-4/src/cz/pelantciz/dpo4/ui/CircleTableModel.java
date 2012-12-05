@@ -4,7 +4,10 @@ package cz.pelantciz.dpo4.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JTable;
+
 import cz.pelantciz.dpo4.Window;
+import cz.pelantciz.dpo4.data.Model;
 import cz.pelantciz.dpo4.shapes.Circle;
 import cz.pelantciz.dpo4.shapes.Shape;
 
@@ -16,15 +19,19 @@ public class CircleTableModel extends BaseTableModel {
 
     private List<Circle> circles = new ArrayList<Circle>();
 
-    public CircleTableModel(Window window, List<Shape> shapes) {
-        super(window, shapes);
+   
+
+    public CircleTableModel(Model model, JTable table) {
+        super(model, table);
     }
 
-    public void invalidate() {
+    @Override
+    public void refresh() {
         circles.clear();
         for (Shape shape : shapes) {
             shape.accept(this);
         }
+        super.refresh();
 
     }
 
@@ -38,7 +45,7 @@ public class CircleTableModel extends BaseTableModel {
     public int getColumnCount() {
         return 4;
     }
-    
+
     @Override
     public String getColumnName(int column) {
         switch (column) {
@@ -53,10 +60,8 @@ public class CircleTableModel extends BaseTableModel {
             default:
                 return super.getColumnName(column);
         }
-        
+
     }
-    
-    
 
     @Override
     public int getRowCount() {

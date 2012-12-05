@@ -3,38 +3,39 @@ package cz.pelantciz.dpo4.ui;
 
 import java.util.List;
 
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import cz.pelantciz.dpo4.Window;
+import cz.pelantciz.dpo4.data.Model;
 import cz.pelantciz.dpo4.shapes.Circle;
 import cz.pelantciz.dpo4.shapes.Shape;
 import cz.pelantciz.dpo4.shapes.Square;
 
-public class BaseTableModel extends AbstractTableModel implements ShapeTableModel {
+public class BaseTableModel extends AbstractTableModel implements ShapeTableModel, View {
     public static final String TAG = "BaseTableModel";
-    protected final Window window;
+    protected final Model model;
+    protected final JTable table;
     protected final List<Shape> shapes;
 
-    public BaseTableModel(Window window, List<Shape> shapes) {
-        this.window = window;
-        this.shapes = shapes;
+    public BaseTableModel(Model model, JTable table) {
+        this.model = model;
+        this.shapes = model.getShapes();
+        this.table=table;
     }
 
     @Override
     public int getColumnCount() {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
     public int getRowCount() {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
     public Object getValueAt(int arg0, int arg1) {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -56,7 +57,7 @@ public class BaseTableModel extends AbstractTableModel implements ShapeTableMode
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        window.invalidateViews();
+        model.invalidateViews();
     }
 
     protected void setIfValid(Shape original, Shape tmp) {
@@ -69,5 +70,11 @@ public class BaseTableModel extends AbstractTableModel implements ShapeTableMode
         } else {
             System.out.println("is NOT valid");
         }
+    }
+
+    @Override
+    public void refresh() {
+        table.revalidate(); // this works 99% of the time
+        table.repaint(); // sometimes needed.
     }
 }

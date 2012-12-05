@@ -1,7 +1,6 @@
 
 package cz.pelantciz.dpo4;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
@@ -11,8 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,9 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import cz.pelantciz.dpo4.shapes.Circle;
-import cz.pelantciz.dpo4.shapes.Shape;
-import cz.pelantciz.dpo4.shapes.Square;
+import cz.pelantciz.dpo4.data.Model;
 import cz.pelantciz.dpo4.ui.CircleTableModel;
 import cz.pelantciz.dpo4.ui.MyCanvas;
 import cz.pelantciz.dpo4.ui.SquareTableModel;
@@ -30,15 +25,13 @@ import cz.pelantciz.dpo4.ui.SquareTableModel;
 public class Window extends JFrame implements MouseListener {
     public static final String TAG = "Window";
 
-    private List<Shape> shapes = new ArrayList<Shape>();
-    private Canvas canvas;
+    private MyCanvas canvas;
     private CircleTableModel circleTableModel;
     private SquareTableModel squareTableModel;
 
     private JTable circleTable;
     private JTable squareTable;
-
-    
+    private Model model;
 
     /**
      * Launch the application.
@@ -60,35 +53,20 @@ public class Window extends JFrame implements MouseListener {
      * Create the frame.
      */
     public Window() {
-        circleTableModel = new CircleTableModel(this, shapes);
-        squareTableModel = new SquareTableModel(this, shapes);
+        model = new Model();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 529, 363);
         getContentPane().setLayout(new GridLayout(0, 2, 0, 0));
 
-        canvas = prepareCanvas();
-        getContentPane().add(canvas);
+        getContentPane().add(prepareCanvas());
         getContentPane().add(prepareRightPanel());
 
     }
 
-    public void invalidateViews() {
-        canvas.update(canvas.getGraphics());
-        circleTableModel.invalidate();
-        circleTable.revalidate(); // this works 99% of the time
-        circleTable.repaint(); // sometimes needed.
-        
-        
-        squareTableModel.invalidate();
-        squareTable.revalidate(); // this works 99% of the time
-        squareTable.repaint(); // sometimes needed.
-        
-        System.out.println("invalidated");
-    }
-
-    private Canvas prepareCanvas() {
-        MyCanvas canvas = new MyCanvas(shapes);
+    private MyCanvas prepareCanvas() {
+        MyCanvas canvas = new MyCanvas(model);
         canvas.addMouseListener(this);
+        model.addView(canvas);
         return canvas;
     }
 
@@ -104,21 +82,29 @@ public class Window extends JFrame implements MouseListener {
         c.gridx = 0;
         c.gridy = 0;
 
-        circleTable = new JTable(circleTableModel);
+        // Circle Table
+        circleTable = new JTable();
+        circleTableModel = new CircleTableModel(model, circleTable);
+        circleTable.setModel(circleTableModel);
         circleTable.setBackground(Color.WHITE);
+        model.addView(circleTableModel);
         panel.add(new JScrollPane(circleTable), c);
 
-        squareTable = new JTable(squareTableModel);
+        // Square tale
+        squareTable = new JTable();
+        squareTableModel = new SquareTableModel(model, squareTable);
+        squareTable.setModel(squareTableModel);
         squareTable.setBackground(Color.WHITE);
+        model.addView(squareTableModel);
         c.gridy = 1;
         panel.add(new JScrollPane(squareTable), c);
 
+        // Clear all button
         JButton button = new JButton("Clear");
         button.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                shapes.clear();
-                invalidateViews();
+                model.clearAll();
             }
         });
         c.weighty = 0;
@@ -151,11 +137,9 @@ public class Window extends JFrame implements MouseListener {
     @Override
     public void mouseReleased(MouseEvent event) {
         if (event.getButton() == event.BUTTON1) {
-            shapes.add(new Circle(event.getX(), event.getY()));
-            invalidateViews();
+            model.addCircle(event.getX(), event.getY());
         } else if (event.getButton() == event.BUTTON3) {
-            shapes.add(new Square(event.getX(), event.getY()));
-            invalidateViews();
+            model.addSquare(event.getX(), event.getY());
         }
 
     }

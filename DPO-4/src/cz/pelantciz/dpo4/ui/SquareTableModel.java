@@ -4,8 +4,9 @@ package cz.pelantciz.dpo4.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.pelantciz.dpo4.Window;
-import cz.pelantciz.dpo4.shapes.Circle;
+import javax.swing.JTable;
+
+import cz.pelantciz.dpo4.data.Model;
 import cz.pelantciz.dpo4.shapes.Shape;
 import cz.pelantciz.dpo4.shapes.Square;
 
@@ -15,15 +16,17 @@ public class SquareTableModel extends BaseTableModel {
 
     private List<Square> squares = new ArrayList<Square>();
 
-    public SquareTableModel(Window window, List<Shape> shapes) {
-        super(window, shapes);
+    public SquareTableModel(Model model, JTable table) {
+        super(model, table);
     }
 
-    public void invalidate() {
+    @Override
+    public void refresh() {
         squares.clear();
         for (Shape shape : shapes) {
             shape.accept(this);
         }
+        super.refresh();
 
     }
 
@@ -42,7 +45,7 @@ public class SquareTableModel extends BaseTableModel {
     public int getRowCount() {
         return squares.size();
     }
-    
+
     @Override
     public String getColumnName(int column) {
         switch (column) {
@@ -57,7 +60,7 @@ public class SquareTableModel extends BaseTableModel {
             default:
                 return super.getColumnName(column);
         }
-        
+
     }
 
     @Override
