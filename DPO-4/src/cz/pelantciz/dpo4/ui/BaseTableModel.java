@@ -6,19 +6,19 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import cz.pelantciz.dpo4.Controller;
 import cz.pelantciz.dpo4.Window;
-import cz.pelantciz.dpo4.data.Model;
 import cz.pelantciz.dpo4.shapes.Circle;
 import cz.pelantciz.dpo4.shapes.Shape;
 import cz.pelantciz.dpo4.shapes.Square;
 
 public class BaseTableModel extends AbstractTableModel implements ShapeTableModel, View {
     public static final String TAG = "BaseTableModel";
-    protected final Model model;
+    protected final Controller model;
     protected final JTable table;
     protected final List<Shape> shapes;
 
-    public BaseTableModel(Model model, JTable table) {
+    public BaseTableModel(Controller model, JTable table) {
         this.model = model;
         this.shapes = model.getShapes();
         this.table=table;

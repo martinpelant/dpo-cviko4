@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.swing.JTable;
 
+import cz.pelantciz.dpo4.Controller;
 import cz.pelantciz.dpo4.Window;
-import cz.pelantciz.dpo4.data.Model;
 import cz.pelantciz.dpo4.shapes.Circle;
 import cz.pelantciz.dpo4.shapes.Shape;
 
@@ -21,7 +21,7 @@ public class CircleTableModel extends BaseTableModel {
 
    
 
-    public CircleTableModel(Model model, JTable table) {
+    public CircleTableModel(Controller model, JTable table) {
         super(model, table);
     }
 

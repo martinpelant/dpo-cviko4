@@ -1,4 +1,4 @@
-package cz.pelantciz.dpo4.data;
+package cz.pelantciz.dpo4;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import cz.pelantciz.dpo4.shapes.Shape;
 import cz.pelantciz.dpo4.shapes.Square;
 import cz.pelantciz.dpo4.ui.View;
 
-public class Model {
-    public static final String TAG = "Model";
+public class Controller {
+    public static final String TAG = "Controller";
     private List<Shape> shapes = new ArrayList<Shape>();
     private List<View> views  =new ArrayList<View>();
     

@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.swing.JTable;
 
-import cz.pelantciz.dpo4.data.Model;
+import cz.pelantciz.dpo4.Controller;
 import cz.pelantciz.dpo4.shapes.Shape;
 import cz.pelantciz.dpo4.shapes.Square;
 
@@ -16,7 +16,7 @@ public class SquareTableModel extends BaseTableModel {
 
     private List<Square> squares = new ArrayList<Square>();
 
-    public SquareTableModel(Model model, JTable table) {
+    public SquareTableModel(Controller model, JTable table) {
         super(model, table);
     }
 

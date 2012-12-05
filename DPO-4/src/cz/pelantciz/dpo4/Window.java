@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import cz.pelantciz.dpo4.data.Model;
 import cz.pelantciz.dpo4.ui.CircleTableModel;
 import cz.pelantciz.dpo4.ui.MyCanvas;
 import cz.pelantciz.dpo4.ui.SquareTableModel;
@@ -31,7 +30,7 @@ public class Window extends JFrame implements MouseListener {
 
     private JTable circleTable;
     private JTable squareTable;
-    private Model model;
+    private Controller model;
 
     /**
      * Launch the application.
@@ -53,7 +52,7 @@ public class Window extends JFrame implements MouseListener {
      * Create the frame.
      */
     public Window() {
-        model = new Model();
+        model = new Controller();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 529, 363);
         getContentPane().setLayout(new GridLayout(0, 2, 0, 0));

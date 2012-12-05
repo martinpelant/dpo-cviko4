@@ -4,15 +4,15 @@ package cz.pelantciz.dpo4.ui;
 import java.awt.Canvas;
 import java.awt.Graphics;
 
-import cz.pelantciz.dpo4.data.Model;
+import cz.pelantciz.dpo4.Controller;
 import cz.pelantciz.dpo4.shapes.Shape;
 
 public class MyCanvas extends Canvas implements View {
     private static final long serialVersionUID = 1L;
     public static final String TAG = "MyCanvas";
-    private Model model;
+    private Controller model;
 
-    public MyCanvas(Model model) {
+    public MyCanvas(Controller model) {
         this.model = model;
     }
 
